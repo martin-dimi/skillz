@@ -2,6 +2,9 @@
 
 Template for spinning up a TypeScript monorepo with an RN/Expo mobile app, backend and a webapp.
 
+BEFORE SPINNING THINGS UP, ensure you have up to date documentation of all the libraries. 
+USE their documentation to spin them up. REMOVE unneded boilerplate 
+
 ## Monorepo
 
 **Bun workspaces**. Everything app-specific lives under `apps/*`. 
@@ -173,3 +176,31 @@ Each feature is a vertical slice. Screens and components import from features; f
 `feat/*` resolves to `src/features/*` (`feat/foo` → `src/features/foo`).
 `ui/*` resolves to `src/components/ui/*` 
 
+
+## webapp/
+- Core components are installed through shadcn (bunx shadcn install) and styled appropriately afterwards
+- Limit custom code as much as possible. Components need to be as reusable as possible
+- Don't bother with server side rendering too much.
+
+### Structure
+```
+apps/webapp/
+├── features/           <- domain modules, self-contained vertical slices
+│   └── <feature>/
+│       ├── store.ts    <- Zustand store
+│       ├── api.ts      <- server api calls (using common lib/api.ts client)
+│       ├── hooks.ts    <- React hooks combining the above api calls
+│       ├── types.ts    <- Common types for this feature. If shared with backend they should live in apps/shared/types/
+│       ├── lib.ts      <- Common helper or util functions for this feature
+│       └── components/ <- common components for this feature. Can be importent from anywhere
+└── package.json        <- 
+```
+
+### Styling
+- We use tailwind for styling and rely on shadcn for default ui components (we can style on top).
+- Use impeccable skill to create and work on the UI side like pages, components, etc. (this is our designer)
+
+### SUPER IMPORTANT
+Every word and element needs to earn it's place. Everything has meaning and purpose. we do not put elements or words for the sake of it.
+This gives us polish and professionalism which is #1 priority to building good UI/UX. 
+Everything has it's place, once it's not needed it should move out the way.
